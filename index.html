@@ -106,11 +106,28 @@
         ball.draw();
       }
 
+      //api para suavizar a animacao
+      window.animateFrame = (function () {
+        return (
+          window.requestAnimationFrame ||
+          window.webkitRequesAnimationFrame ||
+          window.mozRequestAnimationFrame ||
+          window.oRequestAnimationFrame ||
+          window.msRequestAnimationFrame ||
+          function (callback) {
+            return window.setTimeout(callback, 1000 / 60);
+          }
+        );
+      })();
+
+      function main() {
+        animateFrame(main);
+        draw();
+      }
+
       //chamadas das functions
       setup();
-      draw();
-
-      window.setInterval(draw, 1000 / 60);
+      main();
     </script>
   </body>
 </html>
